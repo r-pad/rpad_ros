@@ -1,0 +1,15 @@
+<launch>
+    <!-- Measured in CAD to "top left" corner of the thing. -->
+    <node pkg="tf" type="static_transform_publisher" name="tagcorner_publisher" args="0.048914 0.0275 0.00753 0 0 0 1 panda_hand tagcorner 100" />
+    
+    <!-- Center -->
+    <node pkg="tf" type="static_transform_publisher" name="tagcenter_publisher" args="0 -0.0275 0.0275 0 0 0 1 tagcorner tagcenter 100" />
+
+    <!-- Aruco frame (conventions defined by aruco_ros) but for some reason I got it wrong the first time. -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="tagframe_publisher" args="0 0 0 -0.5 -0.5 0.5 -0.5 tagcenter tagframe 100" /> -->
+    <node pkg="tf" type="static_transform_publisher" name="tagframe_publisher" args="0 0 0 0.5 -0.5 0.5 -0.5 tagcenter tagframe 100" />
+
+    <!-- These should be the same... -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="tag_detection_publisher" args="0 0 0 0 0 0 1 tagframe aruco_marker_frame_581 100" /> -->
+
+</launch>

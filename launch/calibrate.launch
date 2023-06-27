@@ -1,0 +1,19 @@
+<launch>
+  <!-- (start your robot's MoveIt! stack, e.g. include its moveit_planning_execution.launch) -->
+  <!-- (start your tracking system's ROS driver) -->
+
+  <include file="$(find easy_handeye)/launch/calibrate.launch">
+    <arg name="eye_on_hand" value="false"/>
+    <arg name="namespace_prefix" value="my_eob_calib"/>
+
+    <!-- fill in the following parameters according to your robot's published tf frames -->
+    <arg name="move_group" value="panda_arm"/>
+    <arg name="robot_base_frame" value="panda_link0"/>
+    <arg name="robot_effector_frame" value="tagframe"/>
+
+    <!-- fill in the following parameters according to your tracking system's published tf frames -->
+    <arg name="tracking_base_frame" value="0_camera_base"/>
+    <arg name="tracking_marker_frame" value="aruco_marker_frame_581"/>
+    <arg name="translation_delta_meters" value="0.2"/>
+  </include>
+</launch>

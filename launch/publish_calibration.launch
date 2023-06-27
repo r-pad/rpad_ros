@@ -1,0 +1,12 @@
+<launch>
+  <!-- (start your robot's MoveIt! stack, e.g. include its moveit_planning_execution.launch) -->
+  <!-- (start your tracking system's ROS driver) -->
+
+  <include file="$(find easy_handeye)/launch/publish.launch">
+    <arg name="eye_on_hand" value="false"/>
+    <arg name="namespace_prefix" value="my_eob_calib"/>
+    <arg name="tracking_base_frame" value="0_camera_base" />
+    <arg name="calibration_file" value="/home/beisner/.ros/easy_handeye/my_eob_calib_eye_on_base.yaml" />
+  </include>
+
+</launch>
