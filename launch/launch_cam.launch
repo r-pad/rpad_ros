@@ -1,0 +1,130 @@
+<launch>
+    <arg name="camera_id"/>
+    <arg name="wired_sync_mode" default="0"/>
+    <arg name="sensor_sn"/>
+
+    <include file="$(find azure_kinect_ros_driver)/launch/kinect_rgbd.launch">
+        <arg name="sensor_sn" value="$(arg sensor_sn)"/>
+
+        <!-- Naming. -->
+        <arg name="tf_prefix" value="k4a_$(arg camera_id)/"/>
+
+        <!-- Sensor properties -->
+        <arg name="color_resolution" value="1080P"/>
+        <arg name="wired_sync_mode" value="$(arg wired_sync_mode)"/>
+
+        <arg name="point_cloud" value="true"/>
+        <arg name="rgb_point_cloud" value="true"/>
+
+
+        <!-- ROS node properties. -->
+        <arg name="required" value="true"/>
+        <arg name="overwrite_robot_description" value="false"/>
+    </include>
+
+    <!-- Spawn a nodelet manager -->
+    <node pkg="nodelet" type="nodelet" name="manager" args="manager" output="screen" respawn="true">
+        <param name="num_worker_threads" value="16" />
+        <param name="required" value="true" />
+    </node>
+
+    <!-- Spawn an image_proc/rectify nodelet to rectify the RGB image -->
+    <node
+        pkg="nodelet" type="nodelet" name="rectify_rgb"
+        args="load image_proc/rectify manager --no-bond"
+        respawn="true">
+        <remap from="image_mono"  to="rgb/image_raw" />
+        <remap from="image_rect"  to="rgb/image_rect_color" />
+        <param name="required" value="true" />
+    </node>
+
+    <!-- Spawn an image_proc/rectify nodelet to rectify the depth image -->
+    <node
+        pkg="nodelet" type="nodelet" name="rectify_depth"
+        args="load image_proc/rectify manager --no-bond"
+        respawn="true">
+        <remap from="image_mono"  to="depth/image_raw" />
+        <remap from="image_rect"  to="depth/image_rect" />
+        <param name="interpolation" value="0" />
+        <param name="required" value="true" />
+    </node>
+
+    <!-- Spawn an image_proc/rectify nodelet to rectify the IR image -->
+    <node
+        pkg="nodelet" type="nodelet" name="rectify_ir"
+        args="load image_proc/rectify manager --no-bond"
+        respawn="true">
+        <remap from="image_mono"  to="ir/image_raw" />
+        <remap from="image_rect"  to="ir/image_rect" />
+        <param name="required" value="true" />
+    </node>
+
+    <node pkg="multical_tools" type="depth_edge_filter.py" name="depth_filter" output="screen" respawn="true">
+        <remap from="in_image" to="depth/image_rect" />
+        <remap from="in_camera_info" to="depth/camera_info" />
+        <remap from="out_image" to="depth/image_rect_filtered" />
+        <param name="kernal_size" value="3" />
+        <param name="scale" value="1" />
+        <param name="delta" value="0" />
+        <param name="max_grad" value="75" />
+        <param name="required" value="true" />
+    </node>
+
+    <!-- Spawn a depth_image_proc/point_cloud_xyz nodelet to convert the
+        depth image into a point cloud -->
+    <node
+        pkg="nodelet" type="nodelet" name="point_cloud_xyz_filtered"
+        args="load depth_image_proc/point_cloud_xyz manager --no-bond"
+        respawn="true">
+        <remap from="image_rect" to="depth/image_rect_filtered" />
+        <remap from="points"  to="points_filtered" />
+        <param name="required" value="true" />
+    </node>
+
+    <!-- Spawn a depth_image_proc/register nodelet to transform the
+    depth image into the color camera co-ordinate space -->
+    <node pkg="nodelet" type="nodelet" name="depth_register_filtered"
+        args="load depth_image_proc/register manager --no-bond"
+        respawn="true">
+        <remap from="depth/image_rect"  to="depth/image_rect_filtered" />
+        <remap from="depth_registered/image_rect"  to="depth_registered/image_rect_filtered" />
+        <param name="required" value="true" />
+    </node>
+
+    <!-- Spawn a depth_image_proc/point_cloud_xyzrgb nodelet to convert the
+    depth_registered and color images image into a colorized point cloud -->
+    <node pkg="nodelet" type="nodelet" name="point_cloud_xyzrgb_filtered"
+        args="load depth_image_proc/point_cloud_xyzrgb manager --no-bond"
+        respawn="true">
+        <remap from="depth_registered/image_rect"  to="depth_registered/image_rect_filtered" />
+        <remap from="depth_registered/points"  to="depth_registered/points_filtered" />
+        <param name="required" value="true" />
+    </node>
+
+    <!-- Spawn a depth_image_proc/point_cloud_xyz nodelet to convert the
+        depth image into a point cloud -->
+    <node
+        pkg="nodelet" type="nodelet" name="point_cloud_xyz"
+        args="load depth_image_proc/point_cloud_xyz manager --no-bond"
+        respawn="true">
+        <remap from="image_rect"  to="depth/image_rect" />
+        <param name="required" value="true" />
+    </node>
+
+    <!-- Spawn a depth_image_proc/register nodelet to transform the
+    depth image into the color camera co-ordinate space -->
+    <node pkg="nodelet" type="nodelet" name="depth_register"
+        args="load depth_image_proc/register manager --no-bond"
+        respawn="true">
+        <param name="required" value="true" />
+    </node>
+
+    <!-- Spawn a depth_image_proc/point_cloud_xyzrgb nodelet to convert the
+    depth_registered and color images image into a colorized point cloud -->
+    <node pkg="nodelet" type="nodelet" name="point_cloud_xyzrgb"
+        args="load depth_image_proc/point_cloud_xyzrgb manager --no-bond"
+        respawn="true">
+        <param name="required" value="true" />
+    </node>
+
+</launch>

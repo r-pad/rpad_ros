@@ -24,10 +24,12 @@ def init_scene(scene: moveit_commander.PlanningSceneInterface):
     rospy.sleep(2)
     timestamp = rospy.get_rostime()
 
+    # The table is actually a few millimeters below the world frame.
+    OFFSET = -0.00635
     table_dx, table_dy, table_dz = 1.143, 1.143, 1.2
     table_x = 0.4
     table_y = -0.3175
-    table_z = -table_dz / 2.0
+    table_z = -table_dz / 2.0 + OFFSET
     table_size = [table_dx, table_dy, table_dz]
     table_pose = PoseStamped()
     table_pose.header.frame_id = "/world"

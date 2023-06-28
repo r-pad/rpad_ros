@@ -1,0 +1,13 @@
+diff --git a/launch/kinect_rgbd.launch b/launch/kinect_rgbd.launch
+index 4222a41..55113a4 100644
+--- a/launch/kinect_rgbd.launch
++++ b/launch/kinect_rgbd.launch
+@@ -93,7 +93,7 @@
+       <param name="point_cloud"                   value="$(arg point_cloud)" />
+       <param name="rgb_point_cloud"               value="$(arg rgb_point_cloud)" />
+       <param name="point_cloud_in_depth_frame"    value="$(arg point_cloud_in_depth_frame)" />
+-      <param name="sensor_sn"                     value="$(arg sensor_sn)" />
++      <param name="sensor_sn" type="string"       value="$(arg sensor_sn)" />
+       <param name="tf_prefix"                     value="$(arg tf_prefix)" />
+       <param name="recording_file"                value="$(arg recording_file)" />
+       <param name="recording_loop_enabled"        value="$(arg recording_loop_enabled)" />

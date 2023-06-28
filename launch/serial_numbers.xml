@@ -1,0 +1,16 @@
+<!-- <launch> -->
+    <!-- This launch file handles the mapping from camera ids to serial numbers
+    so we don't have to pass around sns everywhere. -->
+
+    <!-- Camera on the left of the robot (closest to the computer). -->
+    <arg name="sensor_sn_0" default="000003493812"/>
+
+    <!-- Camera across from the robot. -->
+    <arg name="sensor_sn_1" default="000180921812"/>
+
+    <!-- Camera on the right of the robot. -->
+    <arg name="sensor_sn_2" default="000059793712"/>
+
+    <!-- Camera directly next to the robot. -->
+    <arg name="sensor_sn_3" default="000263392612"/>
+<!-- </launch> -->

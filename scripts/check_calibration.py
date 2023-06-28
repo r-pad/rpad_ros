@@ -28,10 +28,10 @@ def main():
     while not rospy.is_shutdown():
         try:
             (marker_trans, marker_rot) = listener.lookupTransform(
-                "/world", "/aruco_marker_frame_581", rospy.Time(0)
+                "/world", "/aruco_581", rospy.Time(0)
             )
             (tagframe_trans, tagframe_rot) = listener.lookupTransform(
-                "/world", "/tagframe", rospy.Time(0)
+                "/world", "/tag_gt_frame", rospy.Time(0)
             )
             print("Marker translation: ", marker_trans)
             print("Marker rotation: ", marker_rot)

@@ -1,0 +1,15 @@
+<launch>
+
+  <!-- CAMERA -->
+  <!-- Launch the camera driver separately, cuz there's a race condition and sleeping is hard... -->
+
+  <!-- Launch static publishers which describe the frame of the tag w.r.t. the robot. -->
+  <include file="$(find rpad_ros)/launch/calibration_frame_publishers.launch" />
+
+  <!-- Launch the robot planning scene! -->
+  <include file="$(find rpad_ros)/launch/table1_planning_scene.launch" />
+
+
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find rpad_ros)/launch/verify_calibration_multi.rviz" />
+
+</launch>

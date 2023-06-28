@@ -2,11 +2,15 @@
   <!-- (start your robot's MoveIt! stack, e.g. include its moveit_planning_execution.launch) -->
   <!-- (start your tracking system's ROS driver) -->
 
+  <arg name="namespace_prefix" default="k4a_0"/>
+  <arg name="tracking_base_frame" default="k4a_0/camera_base"/>
+
+
   <include file="$(find easy_handeye)/launch/publish.launch">
     <arg name="eye_on_hand" value="false"/>
-    <arg name="namespace_prefix" value="my_eob_calib"/>
-    <arg name="tracking_base_frame" value="0_camera_base" />
-    <arg name="calibration_file" value="/home/beisner/.ros/easy_handeye/my_eob_calib_eye_on_base.yaml" />
+    <arg name="namespace_prefix" value="$(arg namespace_prefix)"/>
+    <arg name="tracking_base_frame" value="$(arg tracking_base_frame)" />
+    <arg name="calibration_file" value="$(env HOME)/.ros/easy_handeye/$(arg namespace_prefix)_eye_on_base.yaml" />
   </include>
 
 </launch>
