@@ -5,10 +5,9 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /TF1
         - /TF1/Frames1
         - /MotionPlanning1
-        - /MotionPlanning1/Planning Request1
+        - /PointCloud21
       Splitter Ratio: 0.6176470518112183
     Tree Height: 284
   - Class: rviz/Selection
@@ -61,18 +60,20 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        k4a_0/camera_base:
+        aruco_581:
           Value: true
-        k4a_0/camera_body:
-          Value: false
-        k4a_0/camera_visor:
-          Value: false
-        k4a_0/depth_camera_link:
-          Value: false
-        k4a_0/imu_link:
-          Value: false
-        k4a_0/rgb_camera_link:
-          Value: false
+        k4a_1/camera_base:
+          Value: true
+        k4a_1/camera_body:
+          Value: true
+        k4a_1/camera_visor:
+          Value: true
+        k4a_1/depth_camera_link:
+          Value: true
+        k4a_1/imu_link:
+          Value: true
+        k4a_1/rgb_camera_link:
+          Value: true
         panda_EE:
           Value: false
         panda_K:
@@ -140,16 +141,17 @@ Visualization Manager:
       Tree:
         world:
           panda_link0:
-            k4a_0/camera_base:
-              k4a_0/camera_body:
+            k4a_1/camera_base:
+              k4a_1/camera_body:
                 {}
-              k4a_0/camera_visor:
+              k4a_1/camera_visor:
                 {}
-              k4a_0/depth_camera_link:
-                k4a_0/imu_link:
+              k4a_1/depth_camera_link:
+                k4a_1/imu_link:
                   {}
-                k4a_0/rgb_camera_link:
-                  {}
+                k4a_1/rgb_camera_link:
+                  aruco_581:
+                    {}
             panda_link0_sc:
               {}
             panda_link1:
@@ -526,7 +528,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.003000000026077032
       Style: Flat Squares
-      Topic: /k4a_0/depth_registered/points
+      Topic: /k4a_1/depth_to_rgb/points
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -559,7 +561,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 3.039633274078369
+      Distance: 1.3559300899505615
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -567,17 +569,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 0.5573740005493164
+        Y: -0.09734819084405899
+        Z: 0.10925242304801941
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6153978109359741
+      Pitch: 0.480397492647171
       Target Frame: <Fixed Frame>
-      Yaw: 1.3735837936401367
+      Yaw: 0.33857399225234985
     Saved: ~
 Window Geometry:
   Aruco Detection Image:

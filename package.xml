@@ -51,6 +51,8 @@
   <buildtool_depend>catkin</buildtool_depend>
   <depend>rospy</depend>
   <depend>aruco_ros</depend>
+  <depend>tf</depend>
+  <depend>camera_calibration</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

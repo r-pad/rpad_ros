@@ -20,28 +20,34 @@
   <!-- Launch the camera driver -->
   <group ns="k4a_$(arg camera_id)">
   
-    <!-- <include file="$(find azure_kinect_ros_driver)/launch/kinect_rgbd.launch">
+    <include file="$(find azure_kinect_ros_driver)/launch/kinect_rgbd.launch">
       <arg name="sensor_sn" value="$(arg sensor_sn)"/>
       <arg name="tf_prefix" value="k4a_$(arg camera_id)/"/>
-      <arg name="color_resolution" value="2160P"/>
+      <!-- <arg name="color_resolution" value="2160P"/> -->
+      <arg name="color_resolution" value="1080P"/>
+      <arg name="depth_registration" value="false"/>
+
       <arg name="required" value="true"/>
       <arg name="overwrite_robot_description" value="false"/>
-      <arg name="point_cloud" value="true"/>
-      <arg name="rgb_point_cloud" value="true"/>
+      <arg name="point_cloud" value="false"/>
+      <arg name="rgb_point_cloud" value="false"/>
+      <arg name="ir_mono8_scaling_factor" value="0.05" />
     </include>
 
-    <include file="$(find rpad_ros)/launch/depth_rect.launch" /> -->
+    <!-- <include file="$(find rpad_ros)/launch/depth_rect.launch" />
     <include file="$(find rpad_ros)/launch/launch_cam.launch">
         <arg name="sensor_sn" value="$(arg sensor_sn)"/>
         <arg name="camera_id" value="$(arg camera_id)"/>
-    </include>
+    </include> -->
 
-    <!-- Publish transforms -->
-    <include file="$(find rpad_ros)/launch/publish_calibration.launch">
-      <arg name="namespace_prefix" value="k4a_$(arg camera_id)"/>
-      <arg name="tracking_base_frame" value="k4a_$(arg camera_id)/camera_base"/>
-    </include>
+    
   </group>
+
+  <!-- Publish transforms -->
+  <include file="$(find rpad_ros)/launch/publish_calibration.launch">
+    <arg name="namespace_prefix" value="k4a_$(arg camera_id)"/>
+    <arg name="tracking_base_frame" value="k4a_$(arg camera_id)/camera_base"/>
+  </include>
 
   <!-- Launch the tracker. -->
   <include file="$(find rpad_ros)/launch/aruco_single.launch">

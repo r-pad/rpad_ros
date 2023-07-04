@@ -10,12 +10,13 @@
         <arg name="tf_prefix" value="k4a_$(arg camera_id)/"/>
 
         <!-- Sensor properties -->
+        <!-- <arg name="color_resolution" value="1080P"/> -->
         <arg name="color_resolution" value="1080P"/>
         <arg name="wired_sync_mode" value="$(arg wired_sync_mode)"/>
-
-        <arg name="point_cloud" value="true"/>
-        <arg name="rgb_point_cloud" value="true"/>
-
+        <arg name="point_cloud" value="false"/>
+        <arg name="rgb_point_cloud" value="false"/>
+        <arg name="fps" value="15" />  
+        <arg name="ir_mono8_scaling_factor" value="0.05" />
 
         <!-- ROS node properties. -->
         <arg name="required" value="true"/>

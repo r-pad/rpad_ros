@@ -1,0 +1,5 @@
+    <node pkg="camera_calibration" name="cameracalibrator" type="cameracalibrator.py" output="screen" 
+        args="--size $(arg size) --square $(arg square)">
+        <param name="image" value="$(arg image_topic)" />
+        <param name="camera" value="$(arg camera_name)" />
+    </node>

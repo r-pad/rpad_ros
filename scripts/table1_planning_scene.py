@@ -50,7 +50,7 @@ def init_scene(scene: moveit_commander.PlanningSceneInterface):
     cam0_beam_pose.header.frame_id = "/world"
     cam0_beam_pose.header.stamp = timestamp
     cam0_beam_pose.pose.orientation.w = 1
-    cam0_beam_pose.pose.position.x = 0.3564
+    cam0_beam_pose.pose.position.x = table_edge_xn + 0.70485
     cam0_beam_pose.pose.position.y = table_edge_yp
     cam0_beam_pose.pose.position.z = cam_beam_dz / 2.0 - 0.1778
 

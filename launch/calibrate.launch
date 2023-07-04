@@ -40,6 +40,8 @@
 
       <!-- Sensor properties -->
       <arg name="color_resolution" value="2160P"/>
+      <!-- <arg name="color_resolution" value="1080P"/> -->
+
 
       <!-- ROS node properties. -->
       <arg name="required" value="true"/>
