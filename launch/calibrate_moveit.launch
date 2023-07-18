@@ -13,52 +13,50 @@
   In a different robot configuration, you'd use something different. -->
   <arg name="sensor_sn" default="$(eval '000003493812,000180921812,000059793712,000263392612'.split(',')[arg('camera_id')])"/>
 
+  <!-- ROBOT -->
+  <!-- Robot arguments. The defaults are for the franka, but you could change. -->
+  <arg name="move_group" default="panda_arm"/>
+  <arg name="robot_base_frame" default="panda_link0"/>
+  <arg name="robot_effector_frame" default="panda_link8"/>
+
   <!-- FIDUCIAL TAG DETECTION FRAME -->
   <arg name="aruco_marker_id" default="581"/>
   <arg name="aruco_marker_size" default="0.045"/>
 
-  <remap from="/k4a_$(arg camera_id)/depth_to_rgb/points" to="/points"/>
+  <!-- CALIBRATION PROCEDURE -->
+  <!-- The robot takes a bunch of measurements in different rotations. However,
+  the final 4 measurements are a box in a plane, with 2x this value. Make this value as
+  large as possible while still detecting the camera. -->
+  <arg name="translation_delta_meters" default="0.2"/>
+
 
   <!-- Launch the camera driver -->
   <group ns="k4a_$(arg camera_id)">
-  
     <include file="$(find azure_kinect_ros_driver)/launch/kinect_rgbd.launch">
       <arg name="sensor_sn" value="$(arg sensor_sn)"/>
+
+      <!-- Naming. -->
       <arg name="tf_prefix" value="k4a_$(arg camera_id)/"/>
+
+      <!-- Sensor properties -->
       <arg name="color_resolution" value="2160P"/>
       <!-- <arg name="color_resolution" value="1080P"/> -->
-      <arg name="depth_registration" value="false"/>
 
+
+      <!-- ROS node properties. -->
       <arg name="required" value="true"/>
       <arg name="overwrite_robot_description" value="false"/>
-      <arg name="point_cloud" value="false"/>
-      <arg name="rgb_point_cloud" value="false"/>
-      <arg name="ir_mono8_scaling_factor" value="0.05" />
     </include>
-
-    <!-- <include file="$(find rpad_ros)/launch/depth_rect.launch" />
-    <include file="$(find rpad_ros)/launch/launch_cam.launch">
-        <arg name="sensor_sn" value="$(arg sensor_sn)"/>
-        <arg name="camera_id" value="$(arg camera_id)"/>
-    </include> -->
-
-    
   </group>
 
-  <!-- Publish transforms -->
-  <include file="$(find rpad_ros)/launch/publish_calibration.launch">
-    <arg name="namespace_prefix" value="k4a_$(arg camera_id)"/>
-    <arg name="tracking_base_frame" value="k4a_$(arg camera_id)/camera_base"/>
-  </include>
-
   <!-- Launch the tracker. -->
-  <include file="$(find rpad_ros)/launch/aruco_single.launch">
+  <!-- <include file="$(find rpad_ros)/launch/aruco_single.launch">
     <arg name="markerId" value="$(arg aruco_marker_id)"/>
     <arg name="markerSize" value="$(arg aruco_marker_size)"/>
     <arg name="camera_frame" value="k4a_$(arg camera_id)/rgb_camera_link"/>
     <arg name="camera_info_topic" value="/k4a_$(arg camera_id)/rgb/camera_info"/>
     <arg name="image_rect_color_topic" value="/k4a_$(arg camera_id)/rgb/image_rect_color"/>
-  </include>
+  </include> -->
 
   <!-- Launch static publishers which describe the frame of the tag w.r.t. the robot. -->
   <include file="$(find rpad_ros)/launch/calibration_frame_publishers.launch" />
@@ -66,8 +64,6 @@
   <!-- Launch the robot planning scene! -->
   <include file="$(find rpad_ros)/launch/table1_planning_scene.launch" />
 
-
-
-  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find rpad_ros)/launch/rviz/verify_calibration_single.rviz" />
-
+  <!-- Launch rviz with saved stuff. -->
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find rpad_ros)/launch/rviz/calibrate_moveit.rviz" />
 </launch>

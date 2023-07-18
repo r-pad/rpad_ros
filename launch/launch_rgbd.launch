@@ -1,0 +1,33 @@
+<launch>
+    <arg name="camera_id" default="0"/>
+    <arg name="synchronized" default="false"/>
+    <!-- Only need the scaling factor when calibrating IR. -->
+    <arg name="ir_mono8_scaling_factor" value="1.0" />
+
+    <!-- Derived fields. -->
+    <arg name="sensor_sn" value="$(eval '000003493812,000180921812,000059793712,000263392612'.split(',')[arg('camera_id')])"/>
+    <!-- Assumption: 0->MASTER, others are subsidiary. -->
+    <arg name="wired_sync_mode" value="$(eval ((1 if int(arg('camera_id')) == 0 else 2)) if arg('synchronized') else 0)"/>
+
+    <group ns="k4a_$(arg camera_id)">
+        <!-- Launch the camera itself. -->
+        <include file="$(find azure_kinect_ros_driver)/launch/kinect_rgbd.launch">
+        <arg name="sensor_sn" value="$(arg sensor_sn)"/>
+        <arg name="tf_prefix" value="k4a_$(arg camera_id)/"/>
+        <arg name="color_resolution" value="1536P"/>
+        <arg name="depth_mode" value="NFOV_UNBINNED"/>
+        <arg name="required" value="true"/>
+        <arg name="overwrite_robot_description" value="false"/>
+        <arg name="point_cloud" value="false"/>
+        <arg name="rgb_point_cloud" value="false"/>
+        <arg name="ir_mono8_scaling_factor" value="$(arg ir_mono8_scaling_factor)" />
+        <arg name="wired_sync_mode" value="$(arg wired_sync_mode)"/>
+        </include>
+
+        <!-- Also launch per-camera filters for point clouds. -->
+        <include file="$(find rpad_ros)/launch/per_camera_filters.launch">
+            <arg name="prefix" value="/k4a_$(arg camera_id)/depth_to_rgb"/>
+        </include>
+    </group>
+
+</launch>

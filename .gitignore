@@ -1,0 +1,7 @@
+*.npy
+*.pcd
+**/pointclouds/*
+**/pointclouds/**/*
+**/pointclouds2/*
+**/pointclouds2/**/*
+*.bag

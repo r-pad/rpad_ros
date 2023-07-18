@@ -1,0 +1,14 @@
+<launch> 
+    <arg name="camera_id" default="0"/>
+    
+    <include file="$(find rpad_ros)/launch/launch_rgbd.launch">
+        <arg name="camera_id" value="$(arg camera_id)"/>
+    </include>
+
+    <!-- Publish transforms -->
+    <include file="$(find rpad_ros)/launch/publish_calibration.launch">
+      <arg name="namespace_prefix" value="k4a_$(arg camera_id)"/>
+      <arg name="tracking_base_frame" value="k4a_$(arg camera_id)/camera_base"/>
+    </include>
+
+</launch>
