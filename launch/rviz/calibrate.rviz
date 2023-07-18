@@ -5,7 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /TF1
+        - /TF1/Status1
       Splitter Ratio: 0.6176470518112183
     Tree Height: 284
   - Class: rviz/Selection
@@ -137,19 +137,19 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
+        k4a_0/camera_base:
+          k4a_0/camera_body:
+            {}
+          k4a_0/camera_visor:
+            {}
+          k4a_0/depth_camera_link:
+            k4a_0/imu_link:
+              {}
+            k4a_0/rgb_camera_link:
+              aruco_581:
+                {}
         world:
           panda_link0:
-            k4a_0/camera_base:
-              k4a_0/camera_body:
-                {}
-              k4a_0/camera_visor:
-                {}
-              k4a_0/depth_camera_link:
-                k4a_0/imu_link:
-                  {}
-                k4a_0/rgb_camera_link:
-                  aruco_581:
-                    {}
             panda_link0_sc:
               {}
             panda_link1:
@@ -531,7 +531,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 4.964659690856934
+      Distance: 4.485328197479248
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -539,17 +539,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 0.425791472196579
+        Y: -0.367936909198761
+        Z: -0.25036558508872986
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7303977012634277
+      Pitch: 1.299796223640442
       Target Frame: <Fixed Frame>
-      Yaw: 1.2503939867019653
+      Yaw: 0.6653923988342285
     Saved: ~
 Window Geometry:
   Aruco Detection Image:

@@ -1,14 +1,19 @@
 <launch> 
     <arg name="camera_id" default="0"/>
+    <arg name="synchronized" default="false"/>
+    <arg name="publish_snapped" default="true"/>
+
     
     <include file="$(find rpad_ros)/launch/launch_rgbd.launch">
         <arg name="camera_id" value="$(arg camera_id)"/>
+        <arg name="synchronized" value="$(arg synchronized)"/>
     </include>
 
     <!-- Publish transforms -->
-    <include file="$(find rpad_ros)/launch/publish_calibration.launch">
+    <include file="$(find rpad_ros)/launch/publish_extrinsics.launch">
       <arg name="namespace_prefix" value="k4a_$(arg camera_id)"/>
       <arg name="tracking_base_frame" value="k4a_$(arg camera_id)/camera_base"/>
+      <arg name="publish_snapped" value="$(arg publish_snapped)"/>
     </include>
 
 </launch>

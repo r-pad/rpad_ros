@@ -1,0 +1,23 @@
+<launch>
+  <!-- CAMERA -->
+  <arg name="camera_id" default="0"/>
+
+  <!-- FIDUCIAL TAG DETECTION FRAME -->
+  <arg name="aruco_marker_id" default="581"/>
+  <arg name="aruco_marker_size" default="0.045"/>
+
+  <!-- Launch the camera driver -->
+  <include file="$(find rpad_ros)/launch/launch_rgbd.launch">
+    <arg name="camera_id" value="$(arg camera_id)"/>
+    <arg name="synchronized" value="false"/>
+  </include>
+
+  <!-- Launch static publishers which describe the frame of the tag w.r.t. the robot. -->
+  <include file="$(find rpad_ros)/launch/tag_mount_publishers.launch" />
+
+  <!-- Launch the robot planning scene! -->
+  <include file="$(find rpad_ros)/launch/table1_planning_scene.launch" />
+
+  <!-- Launch rviz with saved stuff. -->
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find rpad_ros)/launch/rviz/calibrate_moveit.rviz" />
+</launch>

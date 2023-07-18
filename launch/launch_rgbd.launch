@@ -1,4 +1,10 @@
 <launch>
+    <!-- Cameras:
+      0: Left of the robot (closest to the computer)
+      1: Across from the robot
+      2: Right of the robot
+      3: Directly next to the robot 
+    -->
     <arg name="camera_id" default="0"/>
     <arg name="synchronized" default="false"/>
     <!-- Only need the scaling factor when calibrating IR. -->
@@ -22,6 +28,7 @@
         <arg name="rgb_point_cloud" value="false"/>
         <arg name="ir_mono8_scaling_factor" value="$(arg ir_mono8_scaling_factor)" />
         <arg name="wired_sync_mode" value="$(arg wired_sync_mode)"/>
+        <arg name="node_start_delay" value="$(arg camera_id)"/>
         </include>
 
         <!-- Also launch per-camera filters for point clouds. -->

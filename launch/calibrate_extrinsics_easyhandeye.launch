@@ -3,16 +3,6 @@
   <!-- CAMERA -->
   <arg name="camera_id" default="0"/>
 
-  <!-- Cameras:
-    0: Left of the robot (closest to the computer)
-    1: Across from the robot
-    2: Right of the robot
-    3: Directly next to the robot 
-  -->
-  <!-- Derive the sensor serial name from the id indexing into this list. It's a bit of a hack.
-  In a different robot configuration, you'd use something different. -->
-  <arg name="sensor_sn" default="$(eval '000003493812,000180921812,000059793712,000263392612'.split(',')[arg('camera_id')])"/>
-
   <!-- ROBOT -->
   <!-- Robot arguments. The defaults are for the franka, but you could change. -->
   <arg name="move_group" default="panda_arm"/>
@@ -31,22 +21,10 @@
 
 
   <!-- Launch the camera driver -->
-  <group ns="k4a_$(arg camera_id)">
-    <include file="$(find azure_kinect_ros_driver)/launch/kinect_rgbd.launch">
-      <arg name="sensor_sn" value="$(arg sensor_sn)"/>
-
-      <!-- Naming. -->
-      <arg name="tf_prefix" value="k4a_$(arg camera_id)/"/>
-
-      <!-- Sensor properties -->
-      <arg name="color_resolution" value="2160P"/>
-      <!-- <arg name="color_resolution" value="1080P"/> -->
-
-      <!-- ROS node properties. -->
-      <arg name="required" value="true"/>
-      <arg name="overwrite_robot_description" value="false"/>
-    </include>
-  </group>
+  <include file="$(find rpad_ros)/launch/launch_rgbd.launch">
+    <arg name="camera_id" value="$(arg camera_id)"/>
+    <arg name="synchronized" value="false"/>
+  </include>
 
   <!-- Launch the tracker. -->
   <include file="$(find rpad_ros)/launch/aruco_single.launch">
@@ -58,7 +36,7 @@
   </include>
 
   <!-- Launch static publishers which describe the frame of the tag w.r.t. the robot. -->
-  <include file="$(find rpad_ros)/launch/calibration_frame_publishers.launch" />
+  <include file="$(find rpad_ros)/launch/tag_mount_publishers.launch" />
 
   <!-- Launch the robot planning scene! -->
   <include file="$(find rpad_ros)/launch/table1_planning_scene.launch" />

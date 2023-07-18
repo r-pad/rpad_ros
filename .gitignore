@@ -1,7 +1,5 @@
 *.npy
 *.pcd
-**/pointclouds/*
-**/pointclouds/**/*
-**/pointclouds2/*
-**/pointclouds2/**/*
+**/pointclouds*/*
+**/pointclouds*/**/*
 *.bag

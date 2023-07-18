@@ -1,0 +1,19 @@
+<launch>
+  <arg name="namespace_prefix" default="k4a_0"/>
+  <arg name="tracking_base_frame" default="k4a_0/camera_base"/>
+  <arg name="publish_snapped" default="true"/>
+
+  <arg name="calibration_folder" default="$(env HOME)/.ros/easy_handeye"/>
+
+  <!-- If publish snap, call the calibration file "$(arg namespace_prefix)_eye_on_base_snapped.yaml" -->
+  <arg name="calibration_file" default="$(arg namespace_prefix)_eye_on_base.yaml" unless="$(arg publish_snapped)"/>
+  <arg name="calibration_file" default="$(arg namespace_prefix)_eye_on_base_snapped.yaml" if="$(arg publish_snapped)"/>
+
+  <include file="$(find easy_handeye)/launch/publish.launch">
+    <arg name="eye_on_hand" value="false"/>
+    <arg name="namespace_prefix" value="$(arg namespace_prefix)"/>
+    <arg name="tracking_base_frame" value="$(arg tracking_base_frame)" />
+    <arg name="calibration_file" value="$(arg calibration_folder)/$(arg calibration_file)" />
+  </include>
+
+</launch>

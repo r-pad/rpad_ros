@@ -8,7 +8,7 @@
     <arg name="square" default="0.034" />
     <arg name="ir_mono8_scaling_factor" value="0.05" />
 
-
+    <!-- TODO: decide if this should just be the driver, without the rectification. -->
     <group ns="k4a_$(arg camera_id)">
         <include file="$(find azure_kinect_ros_driver)/launch/kinect_rgbd.launch">
         <arg name="sensor_sn" value="$(arg sensor_sn)"/>

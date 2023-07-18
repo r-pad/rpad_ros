@@ -175,7 +175,7 @@ if __name__ == "__main__":
     # pcds_down = load_point_clouds(voxel_size)
 
     # These are the point clouds from the rpad_ros package.
-    bagdir = "/home/beisner/catkin_ws/src/rpad_ros/scripts/pointclouds2"
+    bagdir = "/home/beisner/catkin_ws/src/rpad_ros/scripts/pointclouds3"
     pcds_down = get_ros_point_clouds(bagdir, voxel_size)
 
     o3d.visualization.draw(pcds_down)

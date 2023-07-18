@@ -1,0 +1,9 @@
+<launch>
+
+  <!-- Launch the cameras, as well as scene-level processing. -->
+  <include file="$(find rpad_ros)/launch/launch_table1_cameras.launch" />
+  
+  <!-- Visualize the whole scene. -->
+  <node type="rviz" name="rviz" pkg="rviz" required="true" args="-d $(find rpad_ros)/launch/rviz/verify_table1_calibration.rviz" />
+
+</launch>
