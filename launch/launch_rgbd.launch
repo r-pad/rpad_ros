@@ -8,7 +8,7 @@
     <arg name="camera_id" default="0"/>
     <arg name="synchronized" default="false"/>
     <!-- Only need the scaling factor when calibrating IR. -->
-    <arg name="ir_mono8_scaling_factor" value="1.0" />
+    <arg name="ir_mono8_scaling_factor" default="1.0" />
 
     <!-- Derived fields. -->
     <arg name="sensor_sn" value="$(eval '000003493812,000180921812,000059793712,000263392612'.split(',')[arg('camera_id')])"/>
@@ -20,12 +20,13 @@
         <include file="$(find azure_kinect_ros_driver)/launch/kinect_rgbd.launch">
         <arg name="sensor_sn" value="$(arg sensor_sn)"/>
         <arg name="tf_prefix" value="k4a_$(arg camera_id)/"/>
-        <arg name="color_resolution" value="1536P"/>
+        <arg name="color_resolution" value="2160P"/>
         <arg name="depth_mode" value="NFOV_UNBINNED"/>
         <arg name="required" value="true"/>
         <arg name="overwrite_robot_description" value="false"/>
         <arg name="point_cloud" value="false"/>
         <arg name="rgb_point_cloud" value="false"/>
+        <arg name="point_cloud_in_depth_frame" value="false"/>
         <arg name="ir_mono8_scaling_factor" value="$(arg ir_mono8_scaling_factor)" />
         <arg name="wired_sync_mode" value="$(arg wired_sync_mode)"/>
         <arg name="node_start_delay" value="$(arg camera_id)"/>

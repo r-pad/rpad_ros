@@ -24,15 +24,20 @@
   <include file="$(find rpad_ros)/launch/launch_rgbd.launch">
     <arg name="camera_id" value="$(arg camera_id)"/>
     <arg name="synchronized" value="false"/>
+    <arg name="ir_mono8_scaling_factor" value="0.05" />
   </include>
 
   <!-- Launch the tracker. -->
   <include file="$(find rpad_ros)/launch/aruco_single.launch">
     <arg name="markerId" value="$(arg aruco_marker_id)"/>
     <arg name="markerSize" value="$(arg aruco_marker_size)"/>
-    <arg name="camera_frame" value="k4a_$(arg camera_id)/rgb_camera_link"/>
-    <arg name="camera_info_topic" value="/k4a_$(arg camera_id)/rgb/camera_info"/>
-    <arg name="image_rect_color_topic" value="/k4a_$(arg camera_id)/rgb/image_rect_color"/>
+    <!-- <arg name="camera_frame" value="k4a_$(arg camera_id)/rgb_camera_link"/> -->
+    <!-- <arg name="camera_info_topic" value="/k4a_$(arg camera_id)/rgb/camera_info"/> -->
+    <arg name="camera_frame" value="k4a_$(arg camera_id)/depth_camera_link"/>
+    <arg name="camera_info_topic" value="/k4a_$(arg camera_id)/ir/camera_info"/>
+    <!-- <arg name="image_rect_color_topic" value="/k4a_$(arg camera_id)/rgb/image_rect_color"/> -->
+    <arg name="image_rect_color_topic" value="/k4a_$(arg camera_id)/ir/image_rect_ir"/>
+
   </include>
 
   <!-- Launch static publishers which describe the frame of the tag w.r.t. the robot. -->
